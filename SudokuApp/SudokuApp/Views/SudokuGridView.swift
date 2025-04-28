@@ -32,11 +32,7 @@ struct SudokuGridView: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
-        .padding()
-        .background(
-            Rectangle()
-                .stroke(getBorderColor(), lineWidth: 3)
-        )
+        // Remove the padding that was creating space between the grid and the outer border
     }
     
     // Check if cell is in same row or column as selected cell
@@ -60,19 +56,20 @@ struct SudokuGridView: View {
     }
 
     private func getBorderWidth(row: Int, column: Int) -> CGFloat {
-        // Outer borders
+        // Outer borders - make heavier (3.0 instead of 2.0)
         if row == 0 || row == 8 || column == 0 || column == 8 {
-            return 2
+            return 3.0
         }
         
-        // Box borders
+        // 3x3 box borders - make same weight as outer border
         if row % 3 == 2 && row < 8 {
-            return 2
+            return 3.0
         }
         if column % 3 == 2 && column < 8 {
-            return 2
+            return 3.0
         }
         
+        // Regular cell borders
         return 0.5
     }
 }

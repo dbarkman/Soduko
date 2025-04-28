@@ -54,17 +54,7 @@ struct NumberPadView: View {
             }
             .padding(.horizontal)
             
-            // Timer display
-            Text(gameViewModel.formattedTime())
-                .font(.title2)
-                .monospacedDigit()
-                .padding(.vertical, 5)
-                .frame(minWidth: 80)
-                .background(
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.2))
-                )
-                .accessibilityLabel("Game time \(gameViewModel.formattedTime())")
+            // Removed timer display as it's already shown in the header
         }
         .padding(.bottom)
     }

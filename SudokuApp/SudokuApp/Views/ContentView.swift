@@ -7,17 +7,36 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                // Game header with timer and difficulty
+        VStack(spacing: 0) {
+            // Game header with timer and difficulty
+            HStack {
+                // Timer display
                 HStack {
-                    // Timer display
+                    Image(systemName: "clock")
+                        .foregroundColor(.secondary)
+                    Text(gameViewModel.formattedTime())
+                        .font(.headline)
+                        .monospacedDigit()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(colorScheme == .dark ? Color.black.opacity(0.3) : Color.white)
+                        .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
+                )
+                
+                Spacer()
+                
+                // Difficulty button
+                Button(action: {
+                    showDifficultyPicker = true
+                }) {
                     HStack {
-                        Image(systemName: "clock")
-                            .foregroundColor(.secondary)
-                        Text(gameViewModel.formattedTime())
+                        Text(difficultyText)
                             .font(.headline)
-                            .monospacedDigit()
+                        Image(systemName: "chevron.down")
+                            .font(.caption)
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
@@ -26,80 +45,58 @@ struct ContentView: View {
                             .fill(colorScheme == .dark ? Color.black.opacity(0.3) : Color.white)
                             .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
                     )
-                    
-                    Spacer()
-                    
-                    // Difficulty button
-                    Button(action: {
-                        showDifficultyPicker = true
-                    }) {
-                        HStack {
-                            Text(difficultyText)
-                                .font(.headline)
-                            Image(systemName: "chevron.down")
-                                .font(.caption)
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(colorScheme == .dark ? Color.black.opacity(0.3) : Color.white)
-                                .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
-                        )
-                    }
-                    .accessibilityLabel("Change difficulty, currently \(difficultyText)")
                 }
+                .accessibilityLabel("Change difficulty, currently \(difficultyText)")
+            }
+            .padding(.horizontal)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
+            
+            // Sudoku grid
+            SudokuGridView(gameViewModel: gameViewModel)
                 .padding(.horizontal)
-                .padding(.top, 8)
-                
-                // Sudoku grid
-                SudokuGridView(gameViewModel: gameViewModel)
-                    .padding(.horizontal)
-                
-                // Number pad and controls
-                NumberPadView(gameViewModel: gameViewModel)
-                    .padding(.top)
-            }
-            .navigationTitle("Sudoku")
-            .navigationBarTitleDisplayMode(.inline)
-            .background(
-                colorScheme == .dark ? 
-                    Color.black : 
-                    Color.gray.opacity(0.05)
-            )
-            .alert(isPresented: $gameViewModel.showAlert) {
-                Alert(
-                    title: Text(gameViewModel.alertTitle),
-                    message: Text(gameViewModel.alertMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            .actionSheet(isPresented: $showDifficultyPicker) {
-                ActionSheet(
-                    title: Text("Select Difficulty"),
-                    buttons: [
-                        .default(Text("Easy")) { 
-                            selectedDifficulty = .easy
-                            gameViewModel.startNewGame(difficulty: .easy)
-                        },
-                        .default(Text("Medium")) { 
-                            selectedDifficulty = .medium
-                            gameViewModel.startNewGame(difficulty: .medium)
-                        },
-                        .default(Text("Hard")) { 
-                            selectedDifficulty = .hard
-                            gameViewModel.startNewGame(difficulty: .hard)
-                        },
-                        .default(Text("Expert")) { 
-                            selectedDifficulty = .expert
-                            gameViewModel.startNewGame(difficulty: .expert)
-                        },
-                        .cancel()
-                    ]
-                )
-            }
+            
+            // Number pad and controls
+            NumberPadView(gameViewModel: gameViewModel)
+                .padding(.top)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .background(
+            colorScheme == .dark ? 
+                Color.black : 
+                Color.gray.opacity(0.05)
+        )
+        .edgesIgnoringSafeArea(.bottom)
+        .alert(isPresented: $gameViewModel.showAlert) {
+            Alert(
+                title: Text(gameViewModel.alertTitle),
+                message: Text(gameViewModel.alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+        .actionSheet(isPresented: $showDifficultyPicker) {
+            ActionSheet(
+                title: Text("Select Difficulty"),
+                buttons: [
+                    .default(Text("Easy")) { 
+                        selectedDifficulty = .easy
+                        gameViewModel.startNewGame(difficulty: .easy)
+                    },
+                    .default(Text("Medium")) { 
+                        selectedDifficulty = .medium
+                        gameViewModel.startNewGame(difficulty: .medium)
+                    },
+                    .default(Text("Hard")) { 
+                        selectedDifficulty = .hard
+                        gameViewModel.startNewGame(difficulty: .hard)
+                    },
+                    .default(Text("Expert")) { 
+                        selectedDifficulty = .expert
+                        gameViewModel.startNewGame(difficulty: .expert)
+                    },
+                    .cancel()
+                ]
+            )
+        }
     }
     
     private var difficultyText: String {
