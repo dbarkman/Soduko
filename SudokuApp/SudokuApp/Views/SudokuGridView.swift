@@ -26,7 +26,7 @@ struct SudokuGridView: View {
                             Rectangle()
                                 .stroke(getBorderColor(), lineWidth: getBorderWidth(row: row, column: column))
                         )
-                        .animation(.easeInOut(duration: 0.2), value: gameViewModel.selectedCell)
+//                        .animation(.easeInOut(duration: 0.2), value: gameViewModel.selectedCell)
                     }
                 }
             }

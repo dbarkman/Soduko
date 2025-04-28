@@ -300,12 +300,12 @@
 				DEVELOPMENT_TEAM = XWQQQ8GD2Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SudokuApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SudokuApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redmesastudios.SudokuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -322,12 +322,12 @@
 				DEVELOPMENT_TEAM = XWQQQ8GD2Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = SudokuApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.SudokuApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redmesastudios.SudokuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
