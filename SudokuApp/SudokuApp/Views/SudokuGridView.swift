@@ -155,9 +155,11 @@ struct SudokuCellView: View {
         } else if hasError {
             return Color.red.opacity(0.3)
         } else if inSameRowColAs {
-            return Color.blue.opacity(0.1)
+            // Use gray in dark mode, light blue in light mode
+            return colorScheme == .dark ? Color.gray.opacity(0.3) : Color.blue.opacity(0.1)
         } else if inSameBoxAs {
-            return Color.blue.opacity(0.05)
+            // Use lighter gray in dark mode, very light blue in light mode
+            return colorScheme == .dark ? Color.gray.opacity(0.15) : Color.blue.opacity(0.05)
         } else {
             return colorScheme == .dark ? Color.black : Color.white
         }
