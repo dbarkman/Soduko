@@ -56,13 +56,14 @@ struct GridLinesView: View {
     let size: CGFloat
     let thinWidth: CGFloat
     let thickWidth: CGFloat
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
             // Vertical lines
             ForEach(1..<9) { column in
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(column % 3 == 0 ? Color.red : gridColor)
                     .frame(
                         width: column % 3 == 0 ? thickWidth : thinWidth,
                         height: size
@@ -76,7 +77,7 @@ struct GridLinesView: View {
             // Horizontal lines
             ForEach(1..<9) { row in
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(row % 3 == 0 ? Color.red : gridColor)
                     .frame(
                         width: size,
                         height: row % 3 == 0 ? thickWidth : thinWidth
@@ -89,9 +90,14 @@ struct GridLinesView: View {
             
             // Outer border
             Rectangle()
-                .stroke(Color.white, lineWidth: thickWidth)
+                .stroke(Color.red, lineWidth: thickWidth)
                 .frame(width: size, height: size)
         }
+    }
+    
+    // Grid color based on color scheme
+    private var gridColor: Color {
+        return colorScheme == .dark ? Color.white : Color.black
     }
 }
 
